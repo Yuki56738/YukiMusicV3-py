@@ -17,12 +17,13 @@ async def connect_nodes():
     )
     # node.set_volume = 0.1
 
+
 @bot.slash_command()
 async def play(ctx, url: str):
     vc = ctx.voice_client
-    if not vc:  # check if the bot is not in a voice channel
-        vc:wavelink.Player = await ctx.author.voice.channel.connect(cls=wavelink.Player)  # connect to the voice channel
-        await vc.set_volume(2)
+    # if not vc:  # check if the bot is not in a voice channel
+    vc:wavelink.Player = await ctx.author.voice.channel.connect(cls=wavelink.Player)  # connect to the voice channel
+    await vc.set_volume(2)
     if ctx.author.voice.channel.id != vc.channel.id:  # check if the bot is not in the voice channel
         return await ctx.respond("BOTと同じボイスチャンネルにいる必要があります！")  # return an error message
     # if "soundcloud" in url:
@@ -64,4 +65,4 @@ async def on_wavelink_node_ready(node: wavelink.Node):
   print(f"{node.identifier} is ready.") # print a message
 
 
-bot.run("ODg5NzUxNDYyODM2NTY4MDk2.GxyGgP.NgDgvXKC6NeMC-ILGPZejphpYYvGJ9VO8SvQOI")
+bot.run("ODg5NzUxNDYyODM2NTY4MDk2.G-flGO.gNzt9eMbBx4Y48ckTcAYJhkJEQpf8kc6lkNGOo")
