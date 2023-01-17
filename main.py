@@ -70,4 +70,4 @@ async def on_wavelink_node_ready(node: wavelink.Node):
     print(f"{node.identifier} is ready.")  # print a message
 
 
-bot.run("ODg5NzUxNDYyODM2NTY4MDk2.G8SIOH.VBTtTsocvcfGf1jGwPDk9nALUC1w0gToXbUOls")
+bot.run("ODg5NzUxNDYyODM2NTY4MDk2.Gy2dsA.8vc6qw-1Zd-Y05zTywQWeAaX_w-G6FJ0Gl7sc8")
