@@ -18,7 +18,11 @@ async def connect_nodes():
     )
     # node.set_volume = 0.1
 
-
+@bot.event
+async def on_voice_update(member: Member, before: VoiceState, after: VoiceState):
+    vc = before.voice_client
+    if len(before.channel.members)==0:
+        await before.channel.guild.voice_client.disconnect()
 @bot.slash_command()
 async def play(ctx, url: str):
     vc = ctx.voice_client
@@ -27,6 +31,8 @@ async def play(ctx, url: str):
         await vc.set_volume(2)
     if ctx.author.voice.channel.id != vc.channel.id:  # check if the bot is not in the voice channel
         return await ctx.respond("BOTと同じボイスチャンネルにいる必要があります！")  # return an error message
+    if len(vc.channel.members)==0:
+        await vc.disconnect()
     # if "soundcloud" in url:
     # else:
     song = await wavelink.YouTubeTrack.search(query=url, return_first=True)
