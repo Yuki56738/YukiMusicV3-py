@@ -21,7 +21,7 @@ async def connect_nodes():
 @bot.event
 async def on_voice_update(member: Member, before: VoiceState, after: VoiceState):
     vc = before.voice_client
-    if len(before.channel.members)==0:
+    if len(before.channel.members)==1:
         await before.channel.guild.voice_client.disconnect()
 @bot.slash_command()
 async def play(ctx, url: str):
