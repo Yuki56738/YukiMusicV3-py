@@ -1,8 +1,16 @@
+import os
+
 import discord
 
 from discord import *
 
 import wavelink
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
+TOKEN = os.environ.get("DISCORD_TOKEN")
 
 bot = discord.Bot()
 
@@ -76,4 +84,4 @@ async def on_wavelink_node_ready(node: wavelink.Node):
     print(f"{node.identifier} is ready.")  # print a message
 
 
-bot.run("ODg5NzUxNDYyODM2NTY4MDk2.Gy2dsA.8vc6qw-1Zd-Y05zTywQWeAaX_w-G6FJ0Gl7sc8")
+bot.run(TOKEN)
