@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lavalink-1
+  labels:
+    app: lavalink-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lavalink-1
+  template:
+    metadata:
+      labels:
+        app: lavalink-1
+    spec:
+      containers:
+      - name: lavalink-1
+        image: us-east1-docker.pkg.dev/eden-admin-bot/yuki-repo/lavalink:v1
+#        env:
+#        - name: DISCORD_TOKEN
+#          value: "MTAyMTY3NDYxODY4MTAzMjcyNA.G9oVIn.LLAdd4IZ1FMqQud9faPUEljmtVrnDknXMEzYAk"
