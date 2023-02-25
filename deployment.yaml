@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: yukimusic-1
-        image: us-east1-docker.pkg.dev/eden-admin-bot/yuki-repo/yukimusic:v3
+        image: us-east1-docker.pkg.dev/eden-admin-bot/yuki-repo/yukimusic:v4
         env:
         - name: DISCORD_TOKEN
