@@ -31,7 +31,7 @@ async def on_voice_update(member: Member, before: VoiceState, after: VoiceState)
     vc = before.voice_client
     if len(before.channel.members)==1:
         await before.channel.guild.voice_client.disconnect()
-song_queue = []  # initialize the song queue as an empty list
+song_queue = {}  # initialize the song queue as an empty list
 
 @bot.slash_command()
 async def play(ctx: ApplicationContext, url: str):
@@ -40,6 +40,7 @@ async def play(ctx: ApplicationContext, url: str):
     if not vc:
         vc: wavelink.Player = await ctx.author.voice.channel.connect(cls=wavelink.Player)
         await vc.set_volume(2)
+        await ctx.followup.send(f"ボイスチャンネル `{vc.channel.name}` に接続しました！こんにちは！")
     if ctx.author.voice.channel.id != vc.channel.id:
         return await ctx.followup.send("BOTと同じボイスチャンネルにいる必要があります！")
     if len(vc.channel.members)==0:
@@ -50,21 +51,25 @@ async def play(ctx: ApplicationContext, url: str):
     if not song:
         return await ctx.followup.send("該当なし.")
 
-    song_queue.append(song)  # add the song object to the end of the queue
+    guild_id = ctx.guild_id
+    if guild_id not in song_queue:
+        song_queue[guild_id] = []
+    song_queue[guild_id].append(song)  # add the song object to the end of the queue
 
-    if len(song_queue) == 1:  # if this is the first song in the queue, play it
-        await vc.play(song_queue[0])
+    if len(song_queue[guild_id]) == 1:  # if this is the first song in the queue, play it
+        await vc.play(song_queue[guild_id][0])
         await ctx.followup.send(f"再生中: `{vc.source.title}`")
     else:  # if there are other songs in the queue, just add it to the queue
-        await ctx.followup.send(f"`{vc.source.title}` をキューに追加しました。")
+        await ctx.followup.send(f"`{song.title}` をキューに追加しました。")
 
 @bot.slash_command()
 async def skip(ctx: ApplicationContext):
+    await ctx.defer()
     vc = ctx.voice_client
     if not vc or not vc.is_playing():
         return await ctx.followup.send("現在再生中の曲がありません。")
     vc.stop()
-    if len(song_queue) > 0:  # if there are other songs in the queue, play the next one
+    if len(song_queue[ctx.guild_id]) > 0:  # if there are other songs in the queue, play the next one
         song = song_queue.pop(0)
         await vc.play(song)
         await ctx.followup.send(f"再生中: `{vc.source.title}`")
@@ -87,6 +92,7 @@ async def stop(ctx: ApplicationContext):
     vc = ctx.voice_client
     await vc.disconnect()
     await ctx.respond(embed=Embed(description="Disconnecting..."))
+    song_queue[ctx.guild_id] = {}
 
 
 @bot.event
