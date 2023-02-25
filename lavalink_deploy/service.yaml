@@ -7,7 +7,7 @@ spec:
   selector:
     app: lavalink-1
   ports:
-  - name: http
+#  - name: http
 #    port: 80
 #    targetPort: 8080
   - name: websock

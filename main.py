@@ -8,7 +8,7 @@ import wavelink
 
 from dotenv import load_dotenv
 
-load_dotenv()
+# load_dotenv()
 
 TOKEN = os.environ.get("DISCORD_TOKEN")
 
@@ -19,7 +19,7 @@ async def connect_nodes():
     await bot.wait_until_ready()
     node = await wavelink.NodePool.create_node(
         bot=bot,
-        host="0.0.0.0",
+        host="34.133.23.172",
         port=2333,
         password='youshallnotpass'
         # password=""
@@ -32,13 +32,14 @@ async def on_voice_update(member: Member, before: VoiceState, after: VoiceState)
     if len(before.channel.members)==1:
         await before.channel.guild.voice_client.disconnect()
 @bot.slash_command()
-async def play(ctx, url: str):
+async def play(ctx: ApplicationContext, url: str):
     vc = ctx.voice_client
+    await ctx.defer()
     if not vc:  # check if the bot is not in a voice channel
         vc: wavelink.Player = await ctx.author.voice.channel.connect(cls=wavelink.Player)  # connect to the voice channel
         await vc.set_volume(2)
     if ctx.author.voice.channel.id != vc.channel.id:  # check if the bot is not in the voice channel
-        return await ctx.respond("BOTと同じボイスチャンネルにいる必要があります！")  # return an error message
+        return await ctx.followup.send("BOTと同じボイスチャンネルにいる必要があります！")  # return an error message
     if len(vc.channel.members)==0:
         await vc.disconnect()
     # if "soundcloud" in url:
@@ -47,7 +48,7 @@ async def play(ctx, url: str):
     # song = await wavelink.SoundCloudTrack.search(query=url, return_first=True)
 
     if not song:  # check if the song is not found
-        return await ctx.respond("該当なし.")  # return an error message
+        return await ctx.followup.send("該当なし.")  # return an error message
     # wavelink.Player.volume = 0.3
     # source2 = PCMVolumeTransformer(song, 0.1)
     # song2=FFmpegPCMAudio
@@ -55,7 +56,7 @@ async def play(ctx, url: str):
     # vc.client.volume = 0.1
 
     await vc.play(song)  # play the songe
-    await ctx.respond(f"再生中: `{vc.source.title}`")  # return a message
+    await ctx.followup.send(f"再生中: `{vc.source.title}`")  # return a message
 
 
 #
