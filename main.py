@@ -26,12 +26,26 @@ async def connect_nodes():
     )
     # node.set_volume = 0.1
 
+
 @bot.event
 async def on_voice_update(member: Member, before: VoiceState, after: VoiceState):
     vc = before.voice_client
-    if len(before.channel.members)==1:
+    if len(before.channel.members) == 1:
         await before.channel.guild.voice_client.disconnect()
-song_queue = {}  # initialize the song queue as an empty list
+
+
+song_queue = {}
+
+
+async def on_song_end(guild_id: int, vc: wavelink.Player):
+    # remove the finished song from the queue
+    song_queue[guild_id].pop(0)
+
+    # if there are more songs in the queue, play the next one
+    if song_queue[guild_id]:
+        await vc.play(song_queue[guild_id][0])
+
+
 
 @bot.slash_command()
 async def play(ctx: ApplicationContext, url: str):
@@ -40,27 +54,30 @@ async def play(ctx: ApplicationContext, url: str):
     if not vc:
         vc: wavelink.Player = await ctx.author.voice.channel.connect(cls=wavelink.Player)
         await vc.set_volume(2)
-        await ctx.followup.send(f"ボイスチャンネル `{vc.channel.name}` に接続しました！こんにちは！")
     if ctx.author.voice.channel.id != vc.channel.id:
         return await ctx.followup.send("BOTと同じボイスチャンネルにいる必要があります！")
-    if len(vc.channel.members)==0:
+    if len(vc.channel.members) == 0:
         await vc.disconnect()
 
     song = await wavelink.YouTubeTrack.search(query=url, return_first=True)
 
     if not song:
         return await ctx.followup.send("該当なし.")
+    if ctx.guild_id not in song_queue:
+        song_queue[ctx.guild_id] = []
+    song_queue[ctx.guild_id].append(song)
 
-    guild_id = ctx.guild_id
-    if guild_id not in song_queue:
-        song_queue[guild_id] = []
-    song_queue[guild_id].append(song)  # add the song object to the end of the queue
-
-    if len(song_queue[guild_id]) == 1:  # if this is the first song in the queue, play it
-        await vc.play(song_queue[guild_id][0])
+    if len(song_queue[ctx.guild_id]) == 1:
+        await vc.play(song_queue[ctx.guild_id][0])
         await ctx.followup.send(f"再生中: `{vc.source.title}`")
-    else:  # if there are other songs in the queue, just add it to the queue
+    else:
         await ctx.followup.send(f"`{song.title}` をキューに追加しました。")
+
+    # Wait for the song to finish playing before calling on_song_end
+    while vc.is_playing():
+        await asyncio.sleep(1)
+    await on_song_end(ctx.guild_id, vc)
+
 
 @bot.slash_command()
 async def skip(ctx: ApplicationContext):
@@ -92,7 +109,7 @@ async def stop(ctx: ApplicationContext):
     vc = ctx.voice_client
     await vc.disconnect()
     await ctx.respond(embed=Embed(description="Disconnecting..."))
-    song_queue[ctx.guild_id] = {}
+    song_queue[ctx.guild_id] = []
 
 
 @bot.event
