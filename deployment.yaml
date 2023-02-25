@@ -19,4 +19,3 @@ spec:
         image: us-east1-docker.pkg.dev/eden-admin-bot/yuki-repo/yukimusic:v4
         env:
         - name: DISCORD_TOKEN
-          value: ODg5NzUxNDYyODM2NTY4MDk2.GR2Y09.GLUVTgWsMoSBv6h4KrivOluwGOpCldl1HE4E38
