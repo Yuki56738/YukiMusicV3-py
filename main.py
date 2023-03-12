@@ -19,7 +19,7 @@ async def connect_nodes():
     await bot.wait_until_ready()
     node = await wavelink.NodePool.create_node(
         bot=bot,
-        host="34.133.23.172",
+        host="127.0.0.1",
         port=2333,
         password='youshallnotpass'
         # password=""
@@ -29,7 +29,7 @@ async def connect_nodes():
 
 @bot.event
 async def on_voice_update(member: Member, before: VoiceState, after: VoiceState):
-    vc = before.voice_client
+    # vc = before.voice_client
     if len(before.channel.members) == 1:
         await before.channel.guild.voice_client.disconnect()
 
