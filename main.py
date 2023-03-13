@@ -61,6 +61,7 @@ async def play(ctx: ApplicationContext, url: str):
 
     song = await wavelink.YouTubeTrack.search(query=url, return_first=True)
 
+
     if not song:
         return await ctx.followup.send("該当なし.")
     if ctx.guild_id not in song_queue:
