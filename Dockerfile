@@ -11,7 +11,7 @@ RUN apt-get update && \
 #    apt install -y open-jtalk open-jtalk-mecab-naist-jdic ffmpeg && \
     rm -rf /var/lib/apt/lists/*
 
-RUN wget https://github.com/freyacodes/Lavalink/releases/download/3.7.5/Lavalink.jar
+RUN #wget https://github.com/freyacodes/Lavalink/releases/download/3.7.5/Lavalink.jar
 # Copy the Discord bot files to the container
 COPY . /app
 
@@ -23,6 +23,8 @@ RUN pip3 install -r /app/requirements.txt
 
 # Set the DISCORD_TOKEN environment variable before running the bot
 #CMD ["bash", "-c", "java -jar Lavalink.jar &; export DISCORD_TOKEN=$DISCORD_TOKEN && python3 main.py"]
-RUN chmod 744 /app/start.sh
+#RUN #chmod 744 /app/start.sh
 
-CMD ["bash", "./start.sh"]
+#CMD ["bash", "./start.sh"]
+
+CMD ["python3", "main.py"]
