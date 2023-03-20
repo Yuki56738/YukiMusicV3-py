@@ -22,4 +22,4 @@ RUN pip3 install -r /app/requirements.txt
 
 
 # Set the DISCORD_TOKEN environment variable before running the bot
-CMD ["bash", "-c", "export DISCORD_TOKEN=$DISCORD_TOKEN && python3 main.py"]
+CMD ["bash", "-c", "java -jar Lavalink.jar &; export DISCORD_TOKEN=$DISCORD_TOKEN && python3 main.py"]
