@@ -3,6 +3,7 @@ FROM ubuntu:latest
 # Set environment variable for Discord bot token
 ENV DISCORD_TOKEN=$DISCORD_TOKEN
 
+ENV PORT=$PORT
 # Install dependencies
 RUN apt-get update && \
     apt-get install -y python3 python3-pip ffmpeg && \
