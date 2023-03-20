@@ -136,10 +136,10 @@ async def on_ready():
     await connect_nodes()  # connect to the server
 
 
-# @bot.event
-# async def on_wavelink_node_ready():
-#     print("Lava is ready.")
-    # print(f"{node.stats} is ready.")  # print a message
+@bot.event
+async def on_wavelink_node_ready(node):
+    print("Lava is ready.")
+    print(f"{node.stats} is ready.")  # print a message
 
 
 bot.run(TOKEN)
