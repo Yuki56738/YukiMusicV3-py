@@ -25,4 +25,4 @@ RUN pip3 install -r /app/requirements.txt
 #CMD ["bash", "-c", "java -jar Lavalink.jar &; export DISCORD_TOKEN=$DISCORD_TOKEN && python3 main.py"]
 RUN chmod 744 /app/start.sh
 
-CMD ["./start.sh"]
+CMD ["bash", "./start.sh"]
