@@ -4,8 +4,7 @@ import discord
 
 from discord import *
 
-import wavelink
-
+# import wavelink
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -13,15 +12,28 @@ load_dotenv()
 TOKEN = os.environ.get("DISCORD_TOKEN")
 
 bot = discord.Bot()
+import wavelink
 
 
 async def connect_nodes():
     await bot.wait_until_ready()
-    node:wavelink.node = wavelink.Node(
-        uri="lavalink-production-e433.up.railway.app",
+    # pool = wavelink.NodePool
+    node = await wavelink.NodePool.create_node(
+        bot=bot,
+        host="localhost",
+        # host="localhost",
+        port=int(os.environ.get("PORT")),
+        # label="MAIN",
         password="yukilava",
+        # secure=False,
     )
-    await wavelink.NodePool.connect(client=bot, nodes=[node])
+
+    # await node.connect()
+    # node:wavelink.node = wavelink.Node(
+    #     uri="lavalink-production-e433.up.railway.app",
+    #     password="yukilava",
+    # )
+    # await wavelink.NodePool.connect(client=bot, nodes=[node])
         # = await wavelink.NodePool.connect(
         # client=bot,
         # bot=bot,
@@ -124,9 +136,10 @@ async def on_ready():
     await connect_nodes()  # connect to the server
 
 
-@bot.event
-async def on_wavelink_node_ready(node: wavelink.Node):
-    print(f"{node.identifier} is ready.")  # print a message
+# @bot.event
+# async def on_wavelink_node_ready():
+#     print("Lava is ready.")
+    # print(f"{node.stats} is ready.")  # print a message
 
 
 bot.run(TOKEN)
