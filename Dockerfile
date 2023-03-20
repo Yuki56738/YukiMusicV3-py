@@ -7,7 +7,7 @@ ENV PORT=$PORT
 WORKDIR /app
 # Install dependencies
 RUN apt-get update && \
-    apt-get install -y python3 python3-pip ffmpeg wget openjdk-11-jre && \
+    apt-get install -y python3 python3-pip ffmpeg && \
 #    apt install -y open-jtalk open-jtalk-mecab-naist-jdic ffmpeg && \
     rm -rf /var/lib/apt/lists/*
 
