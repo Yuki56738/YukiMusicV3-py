@@ -17,13 +17,19 @@ bot = discord.Bot()
 
 async def connect_nodes():
     await bot.wait_until_ready()
-    node = await wavelink.NodePool.create_node(
-        bot=bot,
-        host="bot-2.risaton.net",
-        port=2333,
-        password='youshallnotpass'
-        # password=""
+    node:wavelink.node = wavelink.Node(
+        uri="lavalink-production-e433.up.railway.app",
+        password="yukilava",
     )
+    await wavelink.NodePool.connect(client=bot, nodes=[node])
+        # = await wavelink.NodePool.connect(
+        # client=bot,
+        # bot=bot,
+        # host="lavalink-production-e433.up.railway.app",
+        # port=80,
+        # password='yukilava'
+        # password=""
+    # )
     # node.set_volume = 0.1
 
 
