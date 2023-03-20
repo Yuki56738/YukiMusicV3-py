@@ -25,6 +25,7 @@ async def connect_nodes():
         port=int(os.environ.get("PORT")),
         # label="MAIN",
         password="yukilava",
+        https=False
         # secure=False,
     )
 
