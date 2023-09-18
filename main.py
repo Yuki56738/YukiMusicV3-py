@@ -5,6 +5,9 @@ from dotenv import load_dotenv
 load_dotenv()
 TOKEN = os.environ.get("DISCORD_TOKEN")
 bot = discord.Bot()
+
+bot.load_extension("musiccog")
+"""
 import wavelink
 async def connect_nodes():
     await bot.wait_until_ready()
@@ -33,13 +36,13 @@ async def play(ctx: ApplicationContext, url: str):
         await vc.set_volume(2)
     if ctx.author.voice.channel.id != vc.channel.id:
         return await ctx.followup.send("BOTと同じボイスチャンネルにいる必要があります！")
-    if len(vc.channel.members) == 0:
-        await vc.disconnect()
+    # if len(vc.channel.members) == 0:
+    #     await vc.disconnect()
     song = await wavelink.YouTubeTrack.search(query=url, return_first=True)
     if not song:
         return await ctx.followup.send("該当なし.")
     if ctx.guild_id not in song_queue:
-        song_queue[ctx.guild_id] = []
+        song_queue[ctx.guild_id] = {}
     song_queue[ctx.guild_id].append(song)
     if len(song_queue[ctx.guild_id]) == 1:
         await vc.play(song_queue[ctx.guild_id][0])
@@ -70,10 +73,17 @@ async def stop(ctx: ApplicationContext):
     await ctx.respond(embed=Embed(description="Disconnecting..."))
     song_queue[ctx.guild_id] = []
 @bot.event
+"""
 async def on_ready():
-    await connect_nodes()  # connect to the server
-@bot.event
-async def on_wavelink_node_ready(node):
-    print("Lava is ready.")
-    print(f"{node.stats} is ready.")  # print a message
+    # await connect_nodes()  # connect to the server
+    print(f"Logged in as: {bot.user.name}")
+    print("Connecting following guilds:")
+    for x in bot.guilds:
+        print(x)
+    print("--------------------------")
+
+# @bot.event
+# async def on_wavelink_node_ready(node):
+#     print("Lava is ready.")
+#     print(f"{node.stats} is ready.")  # print a message
 bot.run(TOKEN)
