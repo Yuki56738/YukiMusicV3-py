@@ -48,6 +48,7 @@ class MusicCog(Cog):
     @commands.slash_command(description='再生する')
     @commands.option(name='url', description='URLないし検索ワード')
     async def play(self, ctx: ApplicationContext, url: str):
+        print(url)
         vc = ctx.voice_client
         global song_queue
         await ctx.defer()
@@ -96,9 +97,9 @@ class MusicCog(Cog):
         print("MusicCog has been loaded.")
         print(f"Connecting to node...")
         await self.connect_nodes()
-    @Cog.listener()
-    async def on_wavelink_node_ready(node):
-        print("Lava is ready.")
+    # @Cog.listener()
+    # async def on_wavelink_node_ready(self):
+    #     print("Lava is ready.")
         # print(f"{node.stats} is ready.")  # print a message
 
 def setup(bot):

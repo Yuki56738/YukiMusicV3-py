@@ -6,7 +6,6 @@ load_dotenv()
 TOKEN = os.environ.get("DISCORD_TOKEN")
 bot = discord.Bot()
 
-bot.load_extension("musiccog")
 """
 import wavelink
 async def connect_nodes():
@@ -81,6 +80,8 @@ async def on_ready():
     for x in bot.guilds:
         print(x)
     print("--------------------------")
+bot.load_extension("musiccog")
+
 
 # @bot.event
 # async def on_wavelink_node_ready(node):

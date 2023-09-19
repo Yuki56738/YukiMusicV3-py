@@ -20,8 +20,9 @@ python-dotenv = "==0.21.1"
 typing-extensions = "==4.4.0"
 wavelink = "==1.3.5"
 yarl = "==1.8.2"
-py-cord = {extras = ["voice"], version = "*"}
+#py-cord = {extras = ["voice"], version = "*"}
 mafic = "*"
+py-cord = {extras = ["voice"], version = "*"}
 
 [dev-packages]
 
