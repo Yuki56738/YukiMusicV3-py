@@ -4,8 +4,10 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-py-cord = {extras = ["voice"], version = "*"}
 python-dotenv = "*"
+"lavaplay.py" = "*"
+py-cord = {extras = ["voice"], version = "*"}
+hikari = "*"
 
 [dev-packages]
 

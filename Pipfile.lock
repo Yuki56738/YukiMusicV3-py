@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "e9288d55930d18df55f29e2003de6f531c621f28e3700155d2943d839fa1adf1"
+            "sha256": "9b8165a626e5f01aeb37d8479e0da3fb68cbcffd5dcd5d5e33efa79ebb3b81cf"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -284,6 +284,14 @@
             "markers": "python_full_version >= '3.7.0'",
             "version": "==3.2.0"
         },
+        "colorlog": {
+            "hashes": [
+                "sha256:0d33ca236784a1ba3ff9c532d4964126d8a2c44f1f0cb1d2b0728196f512f662",
+                "sha256:bd94bd21c1e13fac7bd3153f4bc3a7dc0eb0974b8bc2fdf1a989e474f6e582e5"
+            ],
+            "markers": "python_version >= '3.6'",
+            "version": "==6.7.0"
+        },
         "frozenlist": {
             "hashes": [
                 "sha256:007df07a6e3eb3e33e9a1fe6a9db7af152bbd8a185f9aaa6ece10a3529e3e1c6",
@@ -351,6 +359,15 @@
             "markers": "python_version >= '3.8'",
             "version": "==1.4.0"
         },
+        "hikari": {
+            "hashes": [
+                "sha256:0c6727b7315a2a61dc419c943d2fa6b2761f556edc9e697351d4d3bdd950df8b",
+                "sha256:54b62e74c19a7b3f91ed75f954fabad67eb262b6cd6f763ba0ec4b3d4f0f0a62"
+            ],
+            "index": "pypi",
+            "markers": "python_version < '3.12' and python_full_version >= '3.8.0'",
+            "version": "==2.0.0.dev121"
+        },
         "idna": {
             "hashes": [
                 "sha256:814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4",
@@ -358,6 +375,14 @@
             ],
             "markers": "python_version >= '3.5'",
             "version": "==3.4"
+        },
+        "lavaplay.py": {
+            "hashes": [
+                "sha256:58729191e3aed48eef9ecb0319ae44b2852ce3ea103a06a75c6ce6ca4eba6561",
+                "sha256:af437aa28639653d6f12581c18a82c4a3c2a7d8db9e38c13f9e052c10a5b7b26"
+            ],
+            "index": "pypi",
+            "version": "==1.0.12a0"
         },
         "multidict": {
             "hashes": [
