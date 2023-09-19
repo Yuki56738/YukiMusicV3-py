@@ -4,7 +4,8 @@ from discord import *
 from dotenv import load_dotenv
 load_dotenv()
 TOKEN = os.environ.get("DISCORD_TOKEN")
-bot = discord.Bot()
+intents = Intents.all()
+bot = discord.Bot(intents=intents)
 
 """
 import wavelink
