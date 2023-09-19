@@ -4,7 +4,7 @@ from discord import *
 from dotenv import load_dotenv
 load_dotenv()
 TOKEN = os.environ.get("DISCORD_TOKEN")
-intents = Intents.all()
+intents = discord.Intents.all()
 bot = discord.Bot(intents=intents)
 
 """
